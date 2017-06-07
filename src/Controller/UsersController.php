@@ -17,7 +17,7 @@ class UsersController extends AppController
     {
         parent::beforeFilter($event);
 
-        $this->Auth->allow(['register']);
+        $this->Auth->allow(['register', 'logout']);
     }
 
     public function register()
@@ -35,5 +35,22 @@ class UsersController extends AppController
             $this->Flash->error(__('Unable to register the user.'));
         }
         $this->set('user', $user);
+    }
+
+    public function login()
+    {
+        if ($this->request->is('post')) {
+            $user = $this->Auth->identify();
+            if ($user) {
+                $this->Auth->setUser($user);
+                return $this->redirect($this->Auth->redirectUrl());
+            }
+            $this->Flash->error(__('Invalid username or password, try again'));
+        }
+    }
+
+    public function logout()
+    {
+        return $this->redirect($this->Auth->logout());
     }
 }
