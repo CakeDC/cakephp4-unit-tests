@@ -69,7 +69,7 @@ class GamesTable extends Table
         $validator
             ->integer('best_of')
             ->requirePresence('best_of', 'create')
-            ->notEmpty('best_of');
+            ->greaterThan('best_of', 0, __('Best of must be > 0'));
 
         $validator
             ->boolean('is_player_winner')

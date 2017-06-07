@@ -1,6 +1,8 @@
 <?php
+
 namespace App\Model\Table;
 
+use Cake\Core\Configure;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -61,11 +63,14 @@ class MovesTable extends Table
             ->integer('id')
             ->allowEmpty('id', 'create');
 
+        $validMoves = Configure::read('Moves.PlayerMoves');
         $validator
-            ->allowEmpty('player_move');
+            ->allowEmpty('player_move')
+            ->inList('player_move', $validMoves);
 
         $validator
-            ->allowEmpty('computer_move');
+            ->allowEmpty('computer_move')
+            ->inList('computer_move', $validMoves);
 
         $validator
             ->boolean('is_player_winner')
