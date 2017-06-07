@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
@@ -32,6 +33,16 @@ class Move extends Entity
      */
     protected $_accessible = [
         '*' => true,
-        'id' => false
+        'id' => false,
+        'user_id' => false,
     ];
+
+    protected function _getWinner()
+    {
+        if ($this['is_player_winner'] === null) {
+            return __('Tie');
+        }
+
+        return $this['is_player_winner'] ? __('Player') : __('Computer');
+    }
 }

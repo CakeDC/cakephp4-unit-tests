@@ -32,6 +32,7 @@ class Game extends Entity
      */
     protected $_accessible = [
         '*' => true,
-        'id' => false
+        'id' => false,
+        'user_id' => false,
     ];
 }
