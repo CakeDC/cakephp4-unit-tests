@@ -45,6 +45,11 @@ class UsersTable extends Table
         $this->hasMany('Games', [
             'foreignKey' => 'user_id'
         ]);
+        $this->hasMany('GamesWon', [
+            'className' => 'Games',
+            'foreignKey' => 'user_id',
+            'conditions' => ['GamesWon.is_player_winner' => true]
+        ]);
         $this->hasMany('Moves', [
             'foreignKey' => 'user_id'
         ]);
