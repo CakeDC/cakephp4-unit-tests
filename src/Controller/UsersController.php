@@ -17,8 +17,7 @@ class UsersController extends AppController
     {
         parent::beforeFilter($event);
 
-        // we'll need this later when Auth is loaded
-        //$this->Auth->allow(['register']);
+        $this->Auth->allow(['register']);
     }
 
     public function register()

@@ -43,13 +43,37 @@ class AppController extends Controller
 
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
-
+        $this->_loadAuth();
         /*
          * Enable the following components for recommended CakePHP security settings.
          * see http://book.cakephp.org/3.0/en/controllers/components/security.html
          */
         //$this->loadComponent('Security');
         //$this->loadComponent('Csrf');
+    }
+
+    protected function _loadAuth()
+    {
+        $authOptions = [
+            'loginAction' => [
+                'prefix' => false,
+                'controller' => 'Users',
+                'action' => 'login'
+            ],
+            'loginRedirect' => [
+                'prefix' => false,
+                'controller' => 'Games',
+                'action' => 'play'
+            ],
+            'logoutRedirect' => [
+                'prefix' => false,
+                'controller' => 'Pages',
+                'action' => 'display',
+                'home'
+            ],
+        ];
+
+        $this->loadComponent('Auth', $authOptions);
     }
 
     /**
