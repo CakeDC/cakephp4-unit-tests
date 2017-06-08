@@ -45,7 +45,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                 <li><?= $this->cell('Stats', [$currentUser], ['cache' => [
                         'config' => 'default',
                         'key' => 'totals_' . $currentUser['id'] ?? 'null',
-                    ]]) ?></li>
+                    ]])->render() ?></li>
                 <li><a target="_blank" href="http://book.cakephp.org/3.0/">Documentation</a></li>
                 <li><a target="_blank" href="http://api.cakephp.org/3.0/">API</a></li>
             </ul>
