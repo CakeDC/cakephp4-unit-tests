@@ -43,7 +43,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <div class="top-bar-section">
             <ul class="right">
                 <li><?= $this->cell('Stats', [$currentUser], ['cache' => [
-                        'config' => '5seconds',
+                        'config' => 'default',
                         'key' => 'totals_' . $currentUser['id'] ?? 'null',
                     ]]) ?></li>
                 <li><a target="_blank" href="http://book.cakephp.org/3.0/">Documentation</a></li>

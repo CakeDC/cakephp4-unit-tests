@@ -1,9 +1,11 @@
 <?php
+
 namespace App\Model\Table;
 
 use App\Model\Entity\Game;
 use App\Model\Entity\Move;
 use Cake\Cache\Cache;
+use Cake\Event\Event;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -104,7 +106,7 @@ class GamesTable extends Table
             ->first();
     }
 
-    public function findOwner(Query $query, array $options) : Query
+    public function findOwner(Query $query, array $options): Query
     {
         $userId = $options['userId'] ?? null;
         if (!$userId) {
@@ -164,15 +166,22 @@ class GamesTable extends Table
         return [$wins['player'] ?? 0, $wins['computer'] ?? 0];
     }
 
-    public function findWon(Query $query, array $options) : Query
+    public function findWon(Query $query, array $options): Query
     {
         return $query
             ->where(['is_player_winner' => true]);
     }
 
-    public function findLost(Query $query, array $options) : Query
+    public function findLost(Query $query, array $options): Query
     {
         return $query
             ->where(['is_player_winner' => false]);
+    }
+
+    public function afterSave(Event $event, Game $game, $options)
+    {
+        if ($game->isDirty('is_player_winner')) {
+            Cache::delete('totals_' . $game->get('user_id'));
+        }
     }
 }
