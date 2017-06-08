@@ -92,4 +92,22 @@ class GamesTable extends Table
 
         return $rules;
     }
+
+    public function current($userId)
+    {
+        return $this->find('owner', compact('userId'))
+            ->where(['is_player_winner IS' => null])
+            ->contain('Moves')
+            ->first();
+    }
+
+    public function findOwner(Query $query, array $options) : Query
+    {
+        $userId = $options['userId'] ?? null;
+        if (!$userId) {
+            throw new \OutOfBoundsException('Option userId is required');
+        }
+        return $query
+            ->where(['user_id' => $userId]);
+    }
 }
