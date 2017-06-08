@@ -1,6 +1,8 @@
 <?php
 namespace App\Model\Table;
 
+use App\Model\Entity\Game;
+use App\Model\Entity\Move;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -109,5 +111,55 @@ class GamesTable extends Table
         }
         return $query
             ->where(['user_id' => $userId]);
+    }
+
+    public function checkFinished($gameId)
+    {
+        $game = $this->get($gameId, [
+            'contain' => ['Moves'],
+        ]);
+        if ($game['is_player_winner'] !== null) {
+            return null;
+        }
+        $isPlayerWinner = $this->_isPlayerWinner($game);
+        if ($isPlayerWinner !== null) {
+            $game['is_player_winner'] = $isPlayerWinner;
+            return $this->save($game);
+        }
+    }
+
+    protected function _isPlayerWinner(Game $game)
+    {
+        list($playerWins, $computerWins) = $this->_countWins($game);
+        if ($game['best_of'] === 1) {
+            return $playerWins === 1;
+        } else {
+            $threshold = (int)($game['best_of'] / 2) + 1;
+            if ($playerWins >= $threshold) {
+                return true;
+            }
+            if ($computerWins >= $threshold) {
+                return false;
+            }
+        }
+    }
+
+    protected function _countWins(Game $game)
+    {
+        $wins = collection($game->get('moves'))
+            ->countBy(function (Move $move) {
+                if ($move['is_player_winner'] === true) {
+                    return 'player';
+                };
+                if ($move['is_player_winner'] === false) {
+                    return 'computer';
+                };
+            })->toArray();
+        if (empty($wins)) {
+            //only ties
+            return null;
+        }
+
+        return [$wins['player'] ?? 0, $wins['computer'] ?? 0];
     }
 }

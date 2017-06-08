@@ -42,6 +42,7 @@ class MovesTable extends Table
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
+        $this->addBehavior('ComputerMove');
 
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id'
@@ -92,5 +93,21 @@ class MovesTable extends Table
         $rules->add($rules->existsIn(['game_id'], 'Games'));
 
         return $rules;
+    }
+
+    public function playerMove($userId, $gameId, $playerMove)
+    {
+        $game = $this->Games->get($gameId);
+        if ($game['is_player_winner'] !== null) {
+            return null;
+        }
+
+        $move = $this->newEntity([
+            'game_id' => $game['id'],
+            'player_move' => $playerMove,
+        ]);
+        $move['user_id'] = $userId;
+
+        return $this->save($move);
     }
 }
