@@ -77,6 +77,7 @@ class AppController extends Controller
                     'fields' => ['username' => 'email']
                 ]
             ],
+            'authorize' => ['Superuser']
         ];
 
         $this->loadComponent('Auth', $authOptions);
