@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Table;
 
 use Cake\ORM\Query;
@@ -70,5 +71,19 @@ class TournamentsTable extends Table
             ->allowEmpty('expiration_date');
 
         return $validator;
+    }
+
+    public function findIndex(Query $query, $options): Query
+    {
+        $userId = $options['userId'] ?? null;
+        if (!$userId) {
+            throw new \OutOfBoundsException('Missing userId');
+        }
+
+        return $query
+            ->contain(['TournamentMemberships' => function (Query $q) use ($userId) {
+                return $q
+                    ->where(['user_id' => $userId]);
+            }]);
     }
 }

@@ -82,6 +82,11 @@ class TournamentMembershipsTable extends Table
         $rules->add($rules->existsIn(['tournament_id'], 'Tournaments'));
         $rules->add($rules->existsIn(['user_id'], 'Users'));
 
+        $rules->add($rules->isUnique(['tournament_id', 'user_id'], __('Users can only be registered once')));
+        $rules->add($rules->isUnique(['tournament_id', 'nick'], __('Nick is already taken')), null, [
+            'errorField' => 'nick',
+        ]);
+
         return $rules;
     }
 }
