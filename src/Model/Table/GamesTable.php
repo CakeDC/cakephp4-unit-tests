@@ -162,4 +162,16 @@ class GamesTable extends Table
 
         return [$wins['player'] ?? 0, $wins['computer'] ?? 0];
     }
+
+    public function findWon(Query $query, array $options) : Query
+    {
+        return $query
+            ->where(['is_player_winner' => true]);
+    }
+
+    public function findLost(Query $query, array $options) : Query
+    {
+        return $query
+            ->where(['is_player_winner' => false]);
+    }
 }
