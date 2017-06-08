@@ -3,6 +3,7 @@ namespace App\Model\Table;
 
 use App\Model\Entity\Game;
 use App\Model\Entity\Move;
+use Cake\Cache\Cache;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
