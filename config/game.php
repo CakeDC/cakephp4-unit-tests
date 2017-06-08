@@ -6,5 +6,6 @@ return [
         'Scissors' => 'S',
         'Lizard' => 'L',
         'Spock' => 'K',
-    ]
+    ],
+    'ComputerMoveBehavior.StrategyClass' => \App\Strategy\RandomStrategy::class
 ];

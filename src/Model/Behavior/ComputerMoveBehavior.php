@@ -35,9 +35,9 @@ class ComputerMoveBehavior extends Behavior
 
     public function computerMove(Move $move): Move
     {
-        //for later: extract strategy
-        $availableMoves = Configure::read('Moves.PlayerMoves');
-        $computerMove = collection($availableMoves)->shuffle()->first();
+        $strategyClass = Configure::read('ComputerMoveBehavior.StrategyClass');
+        $strategy = new $strategyClass();
+        $computerMove = $strategy->move($move);
         $move->set([
             'computer_move' => $computerMove,
             'is_player_winner' => $this->resolveMove($move['player_move'], $computerMove),
