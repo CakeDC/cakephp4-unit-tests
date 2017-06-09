@@ -2,7 +2,9 @@
 namespace App\Test\TestCase\Controller;
 
 use App\Controller\UsersController;
+use App\Strategy\RockStrategy;
 use Cake\Auth\DefaultPasswordHasher;
+use Cake\Core\Configure;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\IntegrationTestCase;
 use Cake\Utility\Hash;
@@ -20,6 +22,8 @@ class UsersControllerTest extends IntegrationTestCase
      */
     public $fixtures = [
         'app.users',
+        'app.games',
+        'app.moves',
     ];
 
     /**
@@ -75,5 +79,46 @@ class UsersControllerTest extends IntegrationTestCase
         $query = $usersTable->findByEmail($email);
         $this->assertCount(1, $query);
         $this->assertSame('john', $query->firstOrFail()->get('first_name'));
+    }
+
+    public function testWinGame()
+    {
+        Configure::write('ComputerMoveBehavior.StrategyClass', RockStrategy::class);
+
+        // user login happy
+        $data = [
+            'email' => 'admin@example.com',
+            'password' => 'password',
+        ];
+        $this->post('/users/login', $data);
+        $this->assertResponseSuccess();
+        $this->assertSession('john', 'Auth.User.first_name');
+        $this->assertRedirect('/games/play');
+
+        // user is logged in at this point
+        $this->session($this->_requestSession->read());
+        $this->get('/games/play');
+        $this->assertResponseContains('Pick Rock');
+
+        // play Spock 1
+        $data = [
+            'game_id' => 1,
+            'player_move' => 'K',
+        ];
+        $movesTable = TableRegistry::get('Moves');
+        $this->assertCount(0, $movesTable->find());
+        $this->post('/moves/player-move', $data);
+        $this->assertCount(1, $movesTable->find());
+        $gamesTable = TableRegistry::get('Games');
+        $game = $gamesTable->get(1);
+        $this->assertNull($game['is_player_winner']);
+
+        // play Spock 2 and win
+        $this->post('/moves/player-move', $data);
+        $this->assertCount(2, $movesTable->find());
+        $game = $gamesTable->get(1);
+        $this->assertTrue($game['is_player_winner']);
+        //read flash from _flashMessages when the view is rendered, if there is a redirect, the flash is not rendered and you get it from the requestSession instead
+        $this->assertSame('You Won the game', Hash::get($this->_requestSession->read(), 'Flash.flash.0.message'));
     }
 }

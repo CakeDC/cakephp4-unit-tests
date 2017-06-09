@@ -44,10 +44,10 @@ class GamesFixture extends TestFixture
             'id' => 1,
             'created' => '2017-06-06 21:35:34',
             'modified' => '2017-06-06 21:35:34',
-            'best_of' => 1,
+            'best_of' => 3,
             'user_id' => 1,
-            'is_player_winner' => 1,
-            'tournament_id' => 1
+            'is_player_winner' => null,
+            'tournament_id' => null
         ],
     ];
 }
