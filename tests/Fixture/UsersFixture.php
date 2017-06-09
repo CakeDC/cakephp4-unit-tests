@@ -26,6 +26,7 @@ class UsersFixture extends TestFixture
         'is_superuser' => ['type' => 'boolean', 'length' => null, 'null' => true, 'default' => '0', 'comment' => '', 'precision' => null],
         'created' => ['type' => 'datetime', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
         'modified' => ['type' => 'datetime', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
+        'games_count' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => '0', 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
         ],
@@ -44,14 +45,15 @@ class UsersFixture extends TestFixture
     public $records = [
         [
             'id' => 1,
-            'email' => 'Lorem ipsum dolor sit amet',
-            'password' => 'Lorem ipsum dolor sit amet',
-            'is_active' => 1,
-            'first_name' => 'Lorem ipsum dolor sit amet',
-            'last_name' => 'Lorem ipsum dolor sit amet',
-            'is_superuser' => 1,
-            'created' => '2017-06-06 21:35:34',
-            'modified' => '2017-06-06 21:35:34'
+            'email' => 'admin@example.com',
+            'password' => '$2y$10$BIobkNneM0dsxatvYvIsteQ7q8mQG2T9qKnHh3tTUqzltD9HSWm16',
+            'is_active' => true,
+            'first_name' => 'john',
+            'last_name' => 'smith',
+            'is_superuser' => true,
+            'created' => '2017-06-08 15:50:11',
+            'modified' => '2017-06-08 15:50:11',
+            'games_count' => 2
         ],
     ];
 }
