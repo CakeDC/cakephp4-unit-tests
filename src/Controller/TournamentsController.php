@@ -33,4 +33,10 @@ class TournamentsController extends AppController
         $this->set(compact('tournament'));
         $this->render('/Element/Tournaments/join');
     }
+
+    public function stats($slug)
+    {
+        $stats = $this->Tournaments->find('stats', compact('slug'))->firstOrFail();
+        $this->set(compact('stats'));
+    }
 }

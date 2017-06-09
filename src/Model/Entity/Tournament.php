@@ -2,6 +2,7 @@
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
+use Cake\Utility\Text;
 
 /**
  * Tournament Entity
@@ -31,4 +32,10 @@ class Tournament extends Entity
         '*' => true,
         'id' => false
     ];
+
+    protected function _setName($name)
+    {
+        $this['slug'] = Text::slug(strtolower($name));
+        return $name;
+    }
 }

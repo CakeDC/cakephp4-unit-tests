@@ -60,6 +60,14 @@ Router::scope('/', function (RouteBuilder $routes) {
      */
     $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
 
+    $routes->connect('/tournaments/:slug/stats', [
+        'controller' => 'Tournaments',
+        'action' => 'stats',
+    ], [
+        'pass' => ['slug'],
+        'slug' => '[a-zA-Z0-9_-]+',
+    ]);
+
     /**
      * Connect catchall routes for all controllers.
      *
