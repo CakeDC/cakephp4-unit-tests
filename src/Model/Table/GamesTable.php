@@ -47,6 +47,14 @@ class GamesTable extends Table
 
         $this->addBehavior('Timestamp');
 
+        $this->addBehavior('CounterCache', [
+            'Users' => [
+                'games_count' => [
+                    'finder' => 'played'
+                ]
+            ],
+        ]);
+
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
             'joinType' => 'INNER'
@@ -183,5 +191,11 @@ class GamesTable extends Table
         if ($game->isDirty('is_player_winner')) {
             Cache::delete('totals_' . $game->get('user_id'));
         }
+    }
+
+    public function findPlayed(Query $query, array $options): Query
+    {
+        return $query
+            ->where(['is_player_winner IS NOT null']);
     }
 }
