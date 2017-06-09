@@ -45,8 +45,8 @@ class MovesFixture extends TestFixture
             'id' => 1,
             'user_id' => 1,
             'game_id' => 1,
-            'player_move' => 'Lorem ipsum dolor sit ame',
-            'computer_move' => 'Lorem ipsum dolor sit ame',
+            'player_move' => 'R',
+            'computer_move' => 'S',
             'is_player_winner' => 1,
             'created' => '2017-06-06 21:35:34',
             'modified' => '2017-06-06 21:35:34'
