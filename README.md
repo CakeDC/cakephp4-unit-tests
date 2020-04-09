@@ -7,5 +7,6 @@ We're using the code from Cakefest 2017 basic workshop (after upgrading to CakeP
 * Clone the project `git clone https://github.com/CakeDC/cakephp4-unit-tests.git training`
 * Composer install `cd training && composer install`
 * Create a database, configure `config/app_local.php`
+* Import database dump from file `./schema.sql`
 * Start the built-in server using `bin/cake server`
 
