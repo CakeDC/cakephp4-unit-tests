@@ -36,7 +36,7 @@ class TournamentsController extends AppController
     public function view(?string $id = null): ?\Cake\Http\Response
     {
         $tournament = $this->Tournaments->get($id, [
-            'contain' => ['Games', 'TournamentMemberships']
+            'contain' => ['Games', 'TournamentMemberships'],
         ]);
 
         $this->set('tournament', $tournament);
@@ -74,7 +74,7 @@ class TournamentsController extends AppController
     public function edit($id = null)
     {
         $tournament = $this->Tournaments->get($id, [
-            'contain' => []
+            'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $tournament = $this->Tournaments->patchEntity($tournament, $this->request->getData());

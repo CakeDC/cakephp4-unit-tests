@@ -36,7 +36,7 @@ class UsersController extends AppController
     public function view(?string $id = null): ?\Cake\Http\Response
     {
         $user = $this->Users->get($id, [
-            'contain' => ['Games', 'Moves', 'TournamentMemberships', 'GamesWon']
+            'contain' => ['Games', 'Moves', 'TournamentMemberships', 'GamesWon'],
         ]);
 
         $this->set('user', $user);
@@ -74,7 +74,7 @@ class UsersController extends AppController
     public function edit($id = null)
     {
         $user = $this->Users->get($id, [
-            'contain' => []
+            'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->getData());

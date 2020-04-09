@@ -21,7 +21,7 @@ class MovesController extends AppController
     public function index(): ?\Cake\Http\Response
     {
         $this->paginate = [
-            'contain' => ['Users', 'Games']
+            'contain' => ['Users', 'Games'],
         ];
         $moves = $this->paginate($this->Moves);
 
@@ -39,7 +39,7 @@ class MovesController extends AppController
     public function view(?string $id = null): ?\Cake\Http\Response
     {
         $move = $this->Moves->get($id, [
-            'contain' => ['Users', 'Games']
+            'contain' => ['Users', 'Games'],
         ]);
 
         $this->set('move', $move);
@@ -79,7 +79,7 @@ class MovesController extends AppController
     public function edit($id = null)
     {
         $move = $this->Moves->get($id, [
-            'contain' => []
+            'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $move = $this->Moves->patchEntity($move, $this->request->getData());

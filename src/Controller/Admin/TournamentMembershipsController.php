@@ -21,7 +21,7 @@ class TournamentMembershipsController extends AppController
     public function index(): ?\Cake\Http\Response
     {
         $this->paginate = [
-            'contain' => ['Tournaments', 'Users']
+            'contain' => ['Tournaments', 'Users'],
         ];
         $tournamentMemberships = $this->paginate($this->TournamentMemberships);
 
@@ -39,7 +39,7 @@ class TournamentMembershipsController extends AppController
     public function view(?string $id = null): ?\Cake\Http\Response
     {
         $tournamentMembership = $this->TournamentMemberships->get($id, [
-            'contain' => ['Tournaments', 'Users']
+            'contain' => ['Tournaments', 'Users'],
         ]);
 
         $this->set('tournamentMembership', $tournamentMembership);
@@ -79,7 +79,7 @@ class TournamentMembershipsController extends AppController
     public function edit($id = null)
     {
         $tournamentMembership = $this->TournamentMemberships->get($id, [
-            'contain' => []
+            'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $tournamentMembership = $this->TournamentMemberships->patchEntity($tournamentMembership, $this->request->getData());
