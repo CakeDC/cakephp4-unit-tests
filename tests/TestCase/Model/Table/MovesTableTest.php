@@ -35,7 +35,7 @@ class MovesTableTest extends TestCase
      *
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $config = TableRegistry::exists('Moves') ? [] : ['className' => 'App\Model\Table\MovesTable'];
@@ -47,7 +47,7 @@ class MovesTableTest extends TestCase
      *
      * @return void
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->Moves);
 

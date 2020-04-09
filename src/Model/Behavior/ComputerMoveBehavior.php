@@ -21,12 +21,12 @@ class ComputerMoveBehavior extends Behavior
      */
     protected $_defaultConfig = [];
 
-    public function beforeSave(Event $event, Move $move, $options)
+    public function beforeSave(\Cake\Event\EventInterface $event, Move $move, $options)
     {
         return $this->computerMove($move);
     }
 
-    public function afterSave(Event $event, Move $move, $options)
+    public function afterSave(\Cake\Event\EventInterface $event, Move $move, $options)
     {
         $move->game = $this->_table->Games->checkFinished($move['game_id']);
 
