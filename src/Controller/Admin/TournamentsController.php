@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace App\Controller\Admin;
 
 use App\Controller\AppController;
@@ -8,45 +10,42 @@ use App\Controller\AppController;
  *
  * @property \App\Model\Table\TournamentsTable $Tournaments
  *
- * @method \App\Model\Entity\Tournament[] paginate($object = null, array $settings = [])
+ * @method \App\Model\Entity\Tournament[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class TournamentsController extends AppController
 {
-
     /**
      * Index method
      *
-     * @return \Cake\Http\Response|null
+     * @return \Cake\Http\Response|null|void Renders view
      */
-    public function index(): ?\Cake\Http\Response
+    public function index()
     {
         $tournaments = $this->paginate($this->Tournaments);
 
         $this->set(compact('tournaments'));
-        $this->set('_serialize', ['tournaments']);
     }
 
     /**
      * View method
      *
      * @param string|null $id Tournament id.
-     * @return \Cake\Http\Response|null
+     * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view(?string $id = null): ?\Cake\Http\Response
+    public function view($id = null)
     {
         $tournament = $this->Tournaments->get($id, [
             'contain' => ['Games', 'TournamentMemberships'],
         ]);
 
         $this->set('tournament', $tournament);
-        $this->set('_serialize', ['tournament']);
     }
 
     /**
      * Add method
      *
-     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
+     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
     public function add()
     {
@@ -61,15 +60,14 @@ class TournamentsController extends AppController
             $this->Flash->error(__('The tournament could not be saved. Please, try again.'));
         }
         $this->set(compact('tournament'));
-        $this->set('_serialize', ['tournament']);
     }
 
     /**
      * Edit method
      *
      * @param string|null $id Tournament id.
-     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function edit($id = null)
     {
@@ -86,14 +84,13 @@ class TournamentsController extends AppController
             $this->Flash->error(__('The tournament could not be saved. Please, try again.'));
         }
         $this->set(compact('tournament'));
-        $this->set('_serialize', ['tournament']);
     }
 
     /**
      * Delete method
      *
      * @param string|null $id Tournament id.
-     * @return \Cake\Http\Response|null Redirects to index.
+     * @return \Cake\Http\Response|null|void Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function delete($id = null)

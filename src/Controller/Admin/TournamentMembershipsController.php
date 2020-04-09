@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace App\Controller\Admin;
 
 use App\Controller\AppController;
@@ -8,17 +10,16 @@ use App\Controller\AppController;
  *
  * @property \App\Model\Table\TournamentMembershipsTable $TournamentMemberships
  *
- * @method \App\Model\Entity\TournamentMembership[] paginate($object = null, array $settings = [])
+ * @method \App\Model\Entity\TournamentMembership[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class TournamentMembershipsController extends AppController
 {
-
     /**
      * Index method
      *
-     * @return \Cake\Http\Response|null
+     * @return \Cake\Http\Response|null|void Renders view
      */
-    public function index(): ?\Cake\Http\Response
+    public function index()
     {
         $this->paginate = [
             'contain' => ['Tournaments', 'Users'],
@@ -26,30 +27,28 @@ class TournamentMembershipsController extends AppController
         $tournamentMemberships = $this->paginate($this->TournamentMemberships);
 
         $this->set(compact('tournamentMemberships'));
-        $this->set('_serialize', ['tournamentMemberships']);
     }
 
     /**
      * View method
      *
      * @param string|null $id Tournament Membership id.
-     * @return \Cake\Http\Response|null
+     * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view(?string $id = null): ?\Cake\Http\Response
+    public function view($id = null)
     {
         $tournamentMembership = $this->TournamentMemberships->get($id, [
             'contain' => ['Tournaments', 'Users'],
         ]);
 
         $this->set('tournamentMembership', $tournamentMembership);
-        $this->set('_serialize', ['tournamentMembership']);
     }
 
     /**
      * Add method
      *
-     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
+     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
     public function add()
     {
@@ -66,15 +65,14 @@ class TournamentMembershipsController extends AppController
         $tournaments = $this->TournamentMemberships->Tournaments->find('list', ['limit' => 200]);
         $users = $this->TournamentMemberships->Users->find('list', ['limit' => 200]);
         $this->set(compact('tournamentMembership', 'tournaments', 'users'));
-        $this->set('_serialize', ['tournamentMembership']);
     }
 
     /**
      * Edit method
      *
      * @param string|null $id Tournament Membership id.
-     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function edit($id = null)
     {
@@ -93,14 +91,13 @@ class TournamentMembershipsController extends AppController
         $tournaments = $this->TournamentMemberships->Tournaments->find('list', ['limit' => 200]);
         $users = $this->TournamentMemberships->Users->find('list', ['limit' => 200]);
         $this->set(compact('tournamentMembership', 'tournaments', 'users'));
-        $this->set('_serialize', ['tournamentMembership']);
     }
 
     /**
      * Delete method
      *
      * @param string|null $id Tournament Membership id.
-     * @return \Cake\Http\Response|null Redirects to index.
+     * @return \Cake\Http\Response|null|void Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function delete($id = null)
