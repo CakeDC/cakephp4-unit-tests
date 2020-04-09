@@ -1,7 +1,7 @@
 <?php
 /**
-  * @var \App\View\AppView $this
-  */
+ * @var \App\View\AppView $this
+ */
 ?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
@@ -60,7 +60,7 @@
     </table>
     <div class="related">
         <h4><?= __('Related Games') ?></h4>
-        <?php if (!empty($user->games)): ?>
+        <?php if (!empty($user->games)) : ?>
         <table cellpadding="0" cellspacing="0">
             <tr>
                 <th scope="col"><?= __('Id') ?></th>
@@ -72,7 +72,7 @@
                 <th scope="col"><?= __('Tournament Id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
-            <?php foreach ($user->games as $games): ?>
+            <?php foreach ($user->games as $games) : ?>
             <tr>
                 <td><?= h($games->id) ?></td>
                 <td><?= h($games->created) ?></td>
@@ -93,7 +93,7 @@
     </div>
     <div class="related">
         <h4><?= __('Related Moves') ?></h4>
-        <?php if (!empty($user->moves)): ?>
+        <?php if (!empty($user->moves)) : ?>
         <table cellpadding="0" cellspacing="0">
             <tr>
                 <th scope="col"><?= __('Id') ?></th>
@@ -106,7 +106,7 @@
                 <th scope="col"><?= __('Modified') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
-            <?php foreach ($user->moves as $moves): ?>
+            <?php foreach ($user->moves as $moves) : ?>
             <tr>
                 <td><?= h($moves->id) ?></td>
                 <td><?= h($moves->user_id) ?></td>
@@ -128,7 +128,7 @@
     </div>
     <div class="related">
         <h4><?= __('Related Tournament Memberships') ?></h4>
-        <?php if (!empty($user->tournament_memberships)): ?>
+        <?php if (!empty($user->tournament_memberships)) : ?>
         <table cellpadding="0" cellspacing="0">
             <tr>
                 <th scope="col"><?= __('Id') ?></th>
@@ -139,7 +139,7 @@
                 <th scope="col"><?= __('Modified') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
-            <?php foreach ($user->tournament_memberships as $tournamentMemberships): ?>
+            <?php foreach ($user->tournament_memberships as $tournamentMemberships) : ?>
             <tr>
                 <td><?= h($tournamentMemberships->id) ?></td>
                 <td><?= h($tournamentMemberships->tournament_id) ?></td>

@@ -1,7 +1,7 @@
 <?php
 /**
-  * @var \App\View\AppView $this
-  */
+ * @var \App\View\AppView $this
+ */
 ?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
@@ -31,7 +31,7 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($games as $game): ?>
+            <?php foreach ($games as $game) : ?>
             <tr>
                 <td><?= $this->Number->format($game->id) ?></td>
                 <td><?= h($game->created) ?></td>

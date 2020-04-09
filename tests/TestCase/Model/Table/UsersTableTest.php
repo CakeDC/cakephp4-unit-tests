@@ -28,7 +28,7 @@ class UsersTableTest extends TestCase
         'app.games',
         'app.tournaments',
         'app.tournament_memberships',
-        'app.moves'
+        'app.moves',
     ];
 
     /**

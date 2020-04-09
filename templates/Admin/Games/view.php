@@ -1,7 +1,7 @@
 <?php
 /**
-  * @var \App\View\AppView $this
-  */
+ * @var \App\View\AppView $this
+ */
 ?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
@@ -52,7 +52,7 @@
     </table>
     <div class="related">
         <h4><?= __('Related Moves') ?></h4>
-        <?php if (!empty($game->moves)): ?>
+        <?php if (!empty($game->moves)) : ?>
         <table cellpadding="0" cellspacing="0">
             <tr>
                 <th scope="col"><?= __('Id') ?></th>
@@ -65,7 +65,7 @@
                 <th scope="col"><?= __('Modified') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
-            <?php foreach ($game->moves as $moves): ?>
+            <?php foreach ($game->moves as $moves) : ?>
             <tr>
                 <td><?= h($moves->id) ?></td>
                 <td><?= h($moves->user_id) ?></td>

@@ -43,10 +43,10 @@ class TournamentsTable extends Table
         $this->addBehavior('Timestamp');
 
         $this->hasMany('Games', [
-            'foreignKey' => 'tournament_id'
+            'foreignKey' => 'tournament_id',
         ]);
         $this->hasMany('TournamentMemberships', [
-            'foreignKey' => 'tournament_id'
+            'foreignKey' => 'tournament_id',
         ]);
     }
 
@@ -104,6 +104,5 @@ class TournamentsTable extends Table
             ->group('Tournaments.id')
             // only return rows if there is a matching slug
             ->where(['slug' => $slug]);
-
     }
 }

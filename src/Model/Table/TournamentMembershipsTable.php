@@ -43,11 +43,11 @@ class TournamentMembershipsTable extends Table
 
         $this->belongsTo('Tournaments', [
             'foreignKey' => 'tournament_id',
-            'joinType' => 'INNER'
+            'joinType' => 'INNER',
         ]);
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
-            'joinType' => 'INNER'
+            'joinType' => 'INNER',
         ]);
     }
 

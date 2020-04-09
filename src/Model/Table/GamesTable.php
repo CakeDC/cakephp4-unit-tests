@@ -50,20 +50,20 @@ class GamesTable extends Table
         $this->addBehavior('CounterCache', [
             'Users' => [
                 'games_count' => [
-                    'finder' => 'played'
-                ]
+                    'finder' => 'played',
+                ],
             ],
         ]);
 
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
-            'joinType' => 'INNER'
+            'joinType' => 'INNER',
         ]);
         $this->belongsTo('Tournaments', [
-            'foreignKey' => 'tournament_id'
+            'foreignKey' => 'tournament_id',
         ]);
         $this->hasMany('Moves', [
-            'foreignKey' => 'game_id'
+            'foreignKey' => 'game_id',
         ]);
     }
 
@@ -120,6 +120,7 @@ class GamesTable extends Table
         if (!$userId) {
             throw new \OutOfBoundsException('Option userId is required');
         }
+
         return $query
             ->where(['user_id' => $userId]);
     }
@@ -135,6 +136,7 @@ class GamesTable extends Table
         $isPlayerWinner = $this->_isPlayerWinner($game);
         if ($isPlayerWinner !== null) {
             $game['is_player_winner'] = $isPlayerWinner;
+
             return $this->save($game);
         }
     }

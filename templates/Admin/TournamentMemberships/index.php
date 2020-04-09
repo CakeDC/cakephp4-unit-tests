@@ -1,7 +1,7 @@
 <?php
 /**
-  * @var \App\View\AppView $this
-  */
+ * @var \App\View\AppView $this
+ */
 ?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
@@ -28,7 +28,7 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($tournamentMemberships as $tournamentMembership): ?>
+            <?php foreach ($tournamentMemberships as $tournamentMembership) : ?>
             <tr>
                 <td><?= $this->Number->format($tournamentMembership->id) ?></td>
                 <td><?= $tournamentMembership->has('tournament') ? $this->Html->link($tournamentMembership->tournament->name, ['controller' => 'Tournaments', 'action' => 'view', $tournamentMembership->tournament->id]) : '' ?></td>

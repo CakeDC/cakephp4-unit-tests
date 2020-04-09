@@ -1,7 +1,7 @@
 <?php
 /**
-  * @var \App\View\AppView $this
-  */
+ * @var \App\View\AppView $this
+ */
 ?>
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
@@ -30,7 +30,7 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($moves as $move): ?>
+            <?php foreach ($moves as $move) : ?>
             <tr>
                 <td><?= $this->Number->format($move->id) ?></td>
                 <td><?= $move->has('user') ? $this->Html->link($move->user->id, ['controller' => 'Users', 'action' => 'view', $move->user->id]) : '' ?></td>

@@ -26,7 +26,7 @@ class TournamentMembershipsTableTest extends TestCase
     public $fixtures = [
         'app.tournament_memberships',
         'app.tournaments',
-        'app.users'
+        'app.users',
     ];
 
     /**

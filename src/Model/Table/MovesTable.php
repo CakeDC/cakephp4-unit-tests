@@ -45,10 +45,10 @@ class MovesTable extends Table
         $this->addBehavior('ComputerMove');
 
         $this->belongsTo('Users', [
-            'foreignKey' => 'user_id'
+            'foreignKey' => 'user_id',
         ]);
         $this->belongsTo('Games', [
-            'foreignKey' => 'game_id'
+            'foreignKey' => 'game_id',
         ]);
     }
 
