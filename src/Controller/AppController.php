@@ -59,25 +59,25 @@ class AppController extends Controller
             'loginAction' => [
                 'prefix' => false,
                 'controller' => 'Users',
-                'action' => 'login'
+                'action' => 'login',
             ],
             'loginRedirect' => [
                 'prefix' => false,
                 'controller' => 'Games',
-                'action' => 'play'
+                'action' => 'play',
             ],
             'logoutRedirect' => [
                 'prefix' => false,
                 'controller' => 'Pages',
                 'action' => 'display',
-                'home'
+                'home',
             ],
             'authenticate' => [
                 'Form' => [
-                    'fields' => ['username' => 'email']
-                ]
+                    'fields' => ['username' => 'email'],
+                ],
             ],
-            'authorize' => ['Superuser', 'AdminPrefix']
+            'authorize' => ['Superuser', 'AdminPrefix'],
         ];
 
         $this->loadComponent('Auth', $authOptions);
@@ -91,7 +91,8 @@ class AppController extends Controller
      */
     public function beforeRender(Event $event)
     {
-        if (!array_key_exists('_serialize', $this->viewVars) &&
+        if (
+            !array_key_exists('_serialize', $this->viewVars) &&
             in_array($this->response->type(), ['application/json', 'application/xml'])
         ) {
             $this->set('_serialize', true);
