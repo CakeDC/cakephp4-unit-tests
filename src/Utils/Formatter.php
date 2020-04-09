@@ -32,7 +32,7 @@ class Formatter
      * @param $lost
      * @return int
      */
-    protected function roundedPercentage($won, $lost) : int
+    protected function roundedPercentage($won, $lost): int
     {
         return Math::roundedPercentage($won, $lost);
     }
