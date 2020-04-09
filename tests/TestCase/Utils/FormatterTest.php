@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Test\TestCase\Utils;
 
 use App\Utils\Formatter;
@@ -61,5 +62,19 @@ class FormatterTest extends TestCase
             [1, 0, '100%'],
             [2, 0, '100%'],
         ];
+    }
+
+    public function testMockMathDependencyAllowsIsolatedTests(): void
+    {
+        $formatterMock = $this->getMockBuilder(Formatter::class)
+            ->onlyMethods(['roundedPercentage'])
+            ->getMock();
+
+        $formatterMock
+            ->expects($this->once())
+            ->method('roundedPercentage')
+            ->willReturn(50);
+
+        $this->assertEquals('50%', $formatterMock->formatStatPercentage(1, 1));
     }
 }
