@@ -43,10 +43,11 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <a href="/"><span>Cake</span>PHP</a>
     </div>
     <div class="top-nav-links">
-        <?= $this->cell('Stats', [$currentUser ?? null], ['cache' => [
-            'config' => 'default',
-            'key' => 'totals_' . $currentUser['id'] ?? 'null',
-        ]])->render() ?>
+        <?php
+        if (!empty($currentUser)) {
+            echo $this->cell('Stats', [$currentUser])->render();
+        }
+        ?>
     </div>
 </nav>
 <main class="main">
