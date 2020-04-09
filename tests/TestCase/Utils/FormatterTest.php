@@ -77,4 +77,17 @@ class FormatterTest extends TestCase
 
         $this->assertEquals('50%', $formatterMock->formatStatPercentage(1, 1));
     }
+
+    public function testExampleOnConsecutiveCalls(): void
+    {
+        $formatterMock = $this->getMockBuilder(Formatter::class)
+            ->onlyMethods(['roundedPercentage'])
+            ->getMock();
+
+        $formatterMock->method('roundedPercentage')
+            ->willReturnOnConsecutiveCalls(25, 50);
+
+        $this->assertEquals('25%', $formatterMock->formatStatPercentage(99, 1));
+        $this->assertEquals('50%', $formatterMock->formatStatPercentage(99, 1));
+    }
 }
