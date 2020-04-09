@@ -29,7 +29,7 @@ class GamesController extends AppController
      */
     public function create()
     {
-        $game = $this->Games->newEntity();
+        $game = $this->Games->newEmptyEntity();
         if ($this->request->is('post')) {
             $game = $this->Games->patchEntity($game, $this->request->getData());
             $game['user_id'] = $this->Auth->user('id');

@@ -18,10 +18,10 @@ class GamesController extends AppController
      *
      * @return \Cake\Http\Response|null
      */
-    public function index()
+    public function index(): ?\Cake\Http\Response
     {
         $this->paginate = [
-            'contain' => ['Users', 'Tournaments']
+            'contain' => ['Users', 'Tournaments'],
         ];
         $games = $this->paginate($this->Games);
 
@@ -36,10 +36,10 @@ class GamesController extends AppController
      * @return \Cake\Http\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
+    public function view(?string $id = null): ?\Cake\Http\Response
     {
         $game = $this->Games->get($id, [
-            'contain' => ['Users', 'Tournaments', 'Moves']
+            'contain' => ['Users', 'Tournaments', 'Moves'],
         ]);
 
         $this->set('game', $game);
@@ -53,7 +53,7 @@ class GamesController extends AppController
      */
     public function add()
     {
-        $game = $this->Games->newEntity();
+        $game = $this->Games->newEmptyEntity();
         if ($this->request->is('post')) {
             $game = $this->Games->patchEntity($game, $this->request->getData());
             if ($this->Games->save($game)) {
@@ -79,7 +79,7 @@ class GamesController extends AppController
     public function edit($id = null)
     {
         $game = $this->Games->get($id, [
-            'contain' => []
+            'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $game = $this->Games->patchEntity($game, $this->request->getData());

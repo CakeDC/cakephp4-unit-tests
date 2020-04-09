@@ -27,7 +27,7 @@ class GamesTableTest extends TestCase
         'app.games',
         'app.users',
         'app.tournaments',
-        'app.moves'
+        'app.moves',
     ];
 
     /**
@@ -35,7 +35,7 @@ class GamesTableTest extends TestCase
      *
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $config = TableRegistry::exists('Games') ? [] : ['className' => 'App\Model\Table\GamesTable'];
@@ -47,7 +47,7 @@ class GamesTableTest extends TestCase
      *
      * @return void
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->Games);
 

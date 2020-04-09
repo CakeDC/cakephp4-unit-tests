@@ -31,7 +31,7 @@ class TournamentMembershipsTable extends Table
      * @param array $config The configuration for the Table.
      * @return void
      */
-    public function initialize(array $config)
+    public function initialize(array $config): void
     {
         parent::initialize($config);
 
@@ -43,11 +43,11 @@ class TournamentMembershipsTable extends Table
 
         $this->belongsTo('Tournaments', [
             'foreignKey' => 'tournament_id',
-            'joinType' => 'INNER'
+            'joinType' => 'INNER',
         ]);
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
-            'joinType' => 'INNER'
+            'joinType' => 'INNER',
         ]);
     }
 
@@ -57,15 +57,15 @@ class TournamentMembershipsTable extends Table
      * @param \Cake\Validation\Validator $validator Validator instance.
      * @return \Cake\Validation\Validator
      */
-    public function validationDefault(Validator $validator)
+    public function validationDefault(Validator $validator): \Cake\Validation\Validator
     {
         $validator
             ->integer('id')
-            ->allowEmpty('id', 'create');
+            ->allowEmptyString('id', 'create');
 
         $validator
             ->requirePresence('nick', 'create')
-            ->notEmpty('nick');
+            ->allowEmptyString('nick');
 
         return $validator;
     }
@@ -77,7 +77,7 @@ class TournamentMembershipsTable extends Table
      * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
      * @return \Cake\ORM\RulesChecker
      */
-    public function buildRules(RulesChecker $rules)
+    public function buildRules(RulesChecker $rules): \Cake\ORM\RulesChecker
     {
         $rules->add($rules->existsIn(['tournament_id'], 'Tournaments'));
         $rules->add($rules->existsIn(['user_id'], 'Users'));

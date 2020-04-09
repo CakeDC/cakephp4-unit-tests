@@ -33,7 +33,7 @@ class MovesTable extends Table
      * @param array $config The configuration for the Table.
      * @return void
      */
-    public function initialize(array $config)
+    public function initialize(array $config): void
     {
         parent::initialize($config);
 
@@ -45,10 +45,10 @@ class MovesTable extends Table
         $this->addBehavior('ComputerMove');
 
         $this->belongsTo('Users', [
-            'foreignKey' => 'user_id'
+            'foreignKey' => 'user_id',
         ]);
         $this->belongsTo('Games', [
-            'foreignKey' => 'game_id'
+            'foreignKey' => 'game_id',
         ]);
     }
 
@@ -58,24 +58,24 @@ class MovesTable extends Table
      * @param \Cake\Validation\Validator $validator Validator instance.
      * @return \Cake\Validation\Validator
      */
-    public function validationDefault(Validator $validator)
+    public function validationDefault(Validator $validator): \Cake\Validation\Validator
     {
         $validator
             ->integer('id')
-            ->allowEmpty('id', 'create');
+            ->allowEmptyString('id', 'create');
 
         $validMoves = Configure::read('Moves.PlayerMoves');
         $validator
-            ->allowEmpty('player_move')
+            ->allowEmptyString('player_move')
             ->inList('player_move', $validMoves);
 
         $validator
-            ->allowEmpty('computer_move')
+            ->allowEmptyString('computer_move')
             ->inList('computer_move', $validMoves);
 
         $validator
             ->boolean('is_player_winner')
-            ->allowEmpty('is_player_winner');
+            ->allowEmptyString('is_player_winner');
 
         return $validator;
     }
@@ -87,7 +87,7 @@ class MovesTable extends Table
      * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
      * @return \Cake\ORM\RulesChecker
      */
-    public function buildRules(RulesChecker $rules)
+    public function buildRules(RulesChecker $rules): \Cake\ORM\RulesChecker
     {
         $rules->add($rules->existsIn(['user_id'], 'Users'));
         $rules->add($rules->existsIn(['game_id'], 'Games'));

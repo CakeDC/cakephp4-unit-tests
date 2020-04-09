@@ -37,7 +37,7 @@ class GamesTable extends Table
      * @param array $config The configuration for the Table.
      * @return void
      */
-    public function initialize(array $config)
+    public function initialize(array $config): void
     {
         parent::initialize($config);
 
@@ -50,20 +50,20 @@ class GamesTable extends Table
         $this->addBehavior('CounterCache', [
             'Users' => [
                 'games_count' => [
-                    'finder' => 'played'
-                ]
+                    'finder' => 'played',
+                ],
             ],
         ]);
 
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
-            'joinType' => 'INNER'
+            'joinType' => 'INNER',
         ]);
         $this->belongsTo('Tournaments', [
-            'foreignKey' => 'tournament_id'
+            'foreignKey' => 'tournament_id',
         ]);
         $this->hasMany('Moves', [
-            'foreignKey' => 'game_id'
+            'foreignKey' => 'game_id',
         ]);
     }
 
@@ -73,11 +73,11 @@ class GamesTable extends Table
      * @param \Cake\Validation\Validator $validator Validator instance.
      * @return \Cake\Validation\Validator
      */
-    public function validationDefault(Validator $validator)
+    public function validationDefault(Validator $validator): \Cake\Validation\Validator
     {
         $validator
             ->integer('id')
-            ->allowEmpty('id', 'create');
+            ->allowEmptyString('id', 'create');
 
         $validator
             ->integer('best_of')
@@ -86,7 +86,7 @@ class GamesTable extends Table
 
         $validator
             ->boolean('is_player_winner')
-            ->allowEmpty('is_player_winner');
+            ->allowEmptyString('is_player_winner');
 
         return $validator;
     }
@@ -98,7 +98,7 @@ class GamesTable extends Table
      * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
      * @return \Cake\ORM\RulesChecker
      */
-    public function buildRules(RulesChecker $rules)
+    public function buildRules(RulesChecker $rules): \Cake\ORM\RulesChecker
     {
         $rules->add($rules->existsIn(['user_id'], 'Users'));
         $rules->add($rules->existsIn(['tournament_id'], 'Tournaments'));
@@ -120,6 +120,7 @@ class GamesTable extends Table
         if (!$userId) {
             throw new \OutOfBoundsException('Option userId is required');
         }
+
         return $query
             ->where(['user_id' => $userId]);
     }
@@ -135,6 +136,7 @@ class GamesTable extends Table
         $isPlayerWinner = $this->_isPlayerWinner($game);
         if ($isPlayerWinner !== null) {
             $game['is_player_winner'] = $isPlayerWinner;
+
             return $this->save($game);
         }
     }
@@ -186,7 +188,7 @@ class GamesTable extends Table
             ->where(['is_player_winner' => false]);
     }
 
-    public function afterSave(Event $event, Game $game, $options)
+    public function afterSave(\Cake\Event\EventInterface $event, Game $game, $options)
     {
         if ($game->isDirty('is_player_winner')) {
             Cache::delete('totals_' . $game->get('user_id'));

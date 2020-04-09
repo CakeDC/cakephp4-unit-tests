@@ -37,8 +37,9 @@ class AppController extends Controller
      * e.g. `$this->loadComponent('Security');`
      *
      * @return void
+     * @throws \Exception
      */
-    public function initialize()
+    public function initialize(): void
     {
         parent::initialize();
 
@@ -59,25 +60,25 @@ class AppController extends Controller
             'loginAction' => [
                 'prefix' => false,
                 'controller' => 'Users',
-                'action' => 'login'
+                'action' => 'login',
             ],
             'loginRedirect' => [
                 'prefix' => false,
                 'controller' => 'Games',
-                'action' => 'play'
+                'action' => 'play',
             ],
             'logoutRedirect' => [
                 'prefix' => false,
                 'controller' => 'Pages',
                 'action' => 'display',
-                'home'
+                'home',
             ],
             'authenticate' => [
                 'Form' => [
-                    'fields' => ['username' => 'email']
-                ]
+                    'fields' => ['username' => 'email'],
+                ],
             ],
-            'authorize' => ['Superuser', 'AdminPrefix']
+            'authorize' => ['Superuser', 'AdminPrefix'],
         ];
 
         $this->loadComponent('Auth', $authOptions);
@@ -87,16 +88,11 @@ class AppController extends Controller
      * Before render callback.
      *
      * @param \Cake\Event\Event $event The beforeRender event.
-     * @return \Cake\Network\Response|null|void
      */
-    public function beforeRender(Event $event)
+    public function beforeRender(\Cake\Event\EventInterface $event)
     {
-        if (!array_key_exists('_serialize', $this->viewVars) &&
-            in_array($this->response->type(), ['application/json', 'application/xml'])
-        ) {
-            $this->set('_serialize', true);
+        if ($this->components()->has('Auth')) {
+            $this->set('currentUser', $this->Auth->user());
         }
-
-        $this->set('currentUser', $this->Auth->user());
     }
 }

@@ -13,7 +13,7 @@ class AdminPrefixAuthorize extends BaseAuthorize
      * @param ServerRequest $request
      * @return bool
      */
-    public function authorize($user, ServerRequest $request)
+    public function authorize($user, ServerRequest $request): bool
     {
         return $request->getParam('prefix') !== 'admin';
     }

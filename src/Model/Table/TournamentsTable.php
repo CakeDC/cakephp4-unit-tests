@@ -32,7 +32,7 @@ class TournamentsTable extends Table
      * @param array $config The configuration for the Table.
      * @return void
      */
-    public function initialize(array $config)
+    public function initialize(array $config): void
     {
         parent::initialize($config);
 
@@ -43,10 +43,10 @@ class TournamentsTable extends Table
         $this->addBehavior('Timestamp');
 
         $this->hasMany('Games', [
-            'foreignKey' => 'tournament_id'
+            'foreignKey' => 'tournament_id',
         ]);
         $this->hasMany('TournamentMemberships', [
-            'foreignKey' => 'tournament_id'
+            'foreignKey' => 'tournament_id',
         ]);
     }
 
@@ -56,19 +56,19 @@ class TournamentsTable extends Table
      * @param \Cake\Validation\Validator $validator Validator instance.
      * @return \Cake\Validation\Validator
      */
-    public function validationDefault(Validator $validator)
+    public function validationDefault(Validator $validator): \Cake\Validation\Validator
     {
         $validator
             ->integer('id')
-            ->allowEmpty('id', 'create');
+            ->allowEmptyString('id', 'create');
 
         $validator
             ->requirePresence('name', 'create')
-            ->notEmpty('name');
+            ->allowEmptyString('name');
 
         $validator
             ->dateTime('expiration_date')
-            ->allowEmpty('expiration_date');
+            ->allowEmptyDateTime('expiration_date');
 
         return $validator;
     }
@@ -104,6 +104,5 @@ class TournamentsTable extends Table
             ->group('Tournaments.id')
             // only return rows if there is a matching slug
             ->where(['slug' => $slug]);
-
     }
 }

@@ -26,7 +26,7 @@ class TournamentMembershipsTableTest extends TestCase
     public $fixtures = [
         'app.tournament_memberships',
         'app.tournaments',
-        'app.users'
+        'app.users',
     ];
 
     /**
@@ -34,7 +34,7 @@ class TournamentMembershipsTableTest extends TestCase
      *
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $config = TableRegistry::exists('TournamentMemberships') ? [] : ['className' => 'App\Model\Table\TournamentMembershipsTable'];
@@ -46,7 +46,7 @@ class TournamentMembershipsTableTest extends TestCase
      *
      * @return void
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->TournamentMemberships);
 

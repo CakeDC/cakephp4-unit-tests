@@ -18,7 +18,7 @@ class UsersController extends AppController
      *
      * @return \Cake\Http\Response|null
      */
-    public function index()
+    public function index(): ?\Cake\Http\Response
     {
         $users = $this->paginate($this->Users);
 
@@ -33,10 +33,10 @@ class UsersController extends AppController
      * @return \Cake\Http\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
+    public function view(?string $id = null): ?\Cake\Http\Response
     {
         $user = $this->Users->get($id, [
-            'contain' => ['Games', 'Moves', 'TournamentMemberships', 'GamesWon']
+            'contain' => ['Games', 'Moves', 'TournamentMemberships', 'GamesWon'],
         ]);
 
         $this->set('user', $user);
@@ -50,7 +50,7 @@ class UsersController extends AppController
      */
     public function add()
     {
-        $user = $this->Users->newEntity();
+        $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
@@ -74,7 +74,7 @@ class UsersController extends AppController
     public function edit($id = null)
     {
         $user = $this->Users->get($id, [
-            'contain' => []
+            'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->getData());

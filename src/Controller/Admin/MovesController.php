@@ -18,10 +18,10 @@ class MovesController extends AppController
      *
      * @return \Cake\Http\Response|null
      */
-    public function index()
+    public function index(): ?\Cake\Http\Response
     {
         $this->paginate = [
-            'contain' => ['Users', 'Games']
+            'contain' => ['Users', 'Games'],
         ];
         $moves = $this->paginate($this->Moves);
 
@@ -36,10 +36,10 @@ class MovesController extends AppController
      * @return \Cake\Http\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
+    public function view(?string $id = null): ?\Cake\Http\Response
     {
         $move = $this->Moves->get($id, [
-            'contain' => ['Users', 'Games']
+            'contain' => ['Users', 'Games'],
         ]);
 
         $this->set('move', $move);
@@ -53,7 +53,7 @@ class MovesController extends AppController
      */
     public function add()
     {
-        $move = $this->Moves->newEntity();
+        $move = $this->Moves->newEmptyEntity();
         if ($this->request->is('post')) {
             $move = $this->Moves->patchEntity($move, $this->request->getData());
             if ($this->Moves->save($move)) {
@@ -79,7 +79,7 @@ class MovesController extends AppController
     public function edit($id = null)
     {
         $move = $this->Moves->get($id, [
-            'contain' => []
+            'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $move = $this->Moves->patchEntity($move, $this->request->getData());

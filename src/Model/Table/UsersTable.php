@@ -32,7 +32,7 @@ class UsersTable extends Table
      * @param array $config The configuration for the Table.
      * @return void
      */
-    public function initialize(array $config)
+    public function initialize(array $config): void
     {
         parent::initialize($config);
 
@@ -43,18 +43,18 @@ class UsersTable extends Table
         $this->addBehavior('Timestamp');
 
         $this->hasMany('Games', [
-            'foreignKey' => 'user_id'
+            'foreignKey' => 'user_id',
         ]);
         $this->hasMany('GamesWon', [
             'className' => 'Games',
             'foreignKey' => 'user_id',
-            'conditions' => ['GamesWon.is_player_winner' => true]
+            'conditions' => ['GamesWon.is_player_winner' => true],
         ]);
         $this->hasMany('Moves', [
-            'foreignKey' => 'user_id'
+            'foreignKey' => 'user_id',
         ]);
         $this->hasMany('TournamentMemberships', [
-            'foreignKey' => 'user_id'
+            'foreignKey' => 'user_id',
         ]);
     }
 
@@ -64,33 +64,33 @@ class UsersTable extends Table
      * @param \Cake\Validation\Validator $validator Validator instance.
      * @return \Cake\Validation\Validator
      */
-    public function validationDefault(Validator $validator)
+    public function validationDefault(Validator $validator): \Cake\Validation\Validator
     {
         $validator
             ->integer('id')
-            ->allowEmpty('id', 'create');
+            ->allowEmptyString('id', 'create');
 
         $validator
             ->email('email')
             ->requirePresence('email', 'create')
-            ->notEmpty('email');
+            ->allowEmptyString('email');
 
         $validator
-            ->allowEmpty('password');
+            ->allowEmptyString('password');
 
         $validator
             ->boolean('is_active')
-            ->allowEmpty('is_active');
+            ->allowEmptyString('is_active');
 
         $validator
-            ->allowEmpty('first_name');
+            ->allowEmptyString('first_name');
 
         $validator
-            ->allowEmpty('last_name');
+            ->allowEmptyString('last_name');
 
         $validator
             ->boolean('is_superuser')
-            ->allowEmpty('is_superuser');
+            ->allowEmptyString('is_superuser');
 
         return $validator;
     }
@@ -102,7 +102,7 @@ class UsersTable extends Table
      * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
      * @return \Cake\ORM\RulesChecker
      */
-    public function buildRules(RulesChecker $rules)
+    public function buildRules(RulesChecker $rules): \Cake\ORM\RulesChecker
     {
         $rules->add($rules->isUnique(['email']));
 

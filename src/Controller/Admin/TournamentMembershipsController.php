@@ -18,10 +18,10 @@ class TournamentMembershipsController extends AppController
      *
      * @return \Cake\Http\Response|null
      */
-    public function index()
+    public function index(): ?\Cake\Http\Response
     {
         $this->paginate = [
-            'contain' => ['Tournaments', 'Users']
+            'contain' => ['Tournaments', 'Users'],
         ];
         $tournamentMemberships = $this->paginate($this->TournamentMemberships);
 
@@ -36,10 +36,10 @@ class TournamentMembershipsController extends AppController
      * @return \Cake\Http\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
+    public function view(?string $id = null): ?\Cake\Http\Response
     {
         $tournamentMembership = $this->TournamentMemberships->get($id, [
-            'contain' => ['Tournaments', 'Users']
+            'contain' => ['Tournaments', 'Users'],
         ]);
 
         $this->set('tournamentMembership', $tournamentMembership);
@@ -53,7 +53,7 @@ class TournamentMembershipsController extends AppController
      */
     public function add()
     {
-        $tournamentMembership = $this->TournamentMemberships->newEntity();
+        $tournamentMembership = $this->TournamentMemberships->newEmptyEntity();
         if ($this->request->is('post')) {
             $tournamentMembership = $this->TournamentMemberships->patchEntity($tournamentMembership, $this->request->getData());
             if ($this->TournamentMemberships->save($tournamentMembership)) {
@@ -79,7 +79,7 @@ class TournamentMembershipsController extends AppController
     public function edit($id = null)
     {
         $tournamentMembership = $this->TournamentMemberships->get($id, [
-            'contain' => []
+            'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $tournamentMembership = $this->TournamentMemberships->patchEntity($tournamentMembership, $this->request->getData());
