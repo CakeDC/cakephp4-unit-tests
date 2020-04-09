@@ -203,4 +203,3 @@ Type::build('timestamp')
 //Inflector::rules('transliteration', ['/å/' => 'aa']);
 //
 Configure::load('game');
-
