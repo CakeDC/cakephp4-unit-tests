@@ -12,7 +12,7 @@
                 __('Delete'),
                 ['action' => 'delete', $tournament->id],
                 ['confirm' => __('Are you sure you want to delete # {0}?', $tournament->id), 'class' => 'side-nav-item']
-            ) ?>
+) ?>
             <?= $this->Html->link(__('List Tournaments'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
         </div>
     </aside>

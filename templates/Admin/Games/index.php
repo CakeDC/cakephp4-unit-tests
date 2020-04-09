@@ -22,7 +22,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($games as $game): ?>
+                <?php foreach ($games as $game) : ?>
                 <tr>
                     <td><?= $this->Number->format($game->id) ?></td>
                     <td><?= h($game->created) ?></td>

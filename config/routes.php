@@ -45,7 +45,7 @@ use Cake\Routing\RouteBuilder;
 /** @var \Cake\Routing\RouteBuilder $routes */
 $routes->setRouteClass(DashedRoute::class);
 
-$routes->prefix('admin', function($routes) {
+$routes->prefix('admin', function ($routes) {
     $routes->fallbacks(DashedRoute::class);
 });
 

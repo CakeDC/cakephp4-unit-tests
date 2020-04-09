@@ -12,7 +12,7 @@
                 __('Delete'),
                 ['action' => 'delete', $game->id],
                 ['confirm' => __('Are you sure you want to delete # {0}?', $game->id), 'class' => 'side-nav-item']
-            ) ?>
+) ?>
             <?= $this->Html->link(__('List Games'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
         </div>
     </aside>

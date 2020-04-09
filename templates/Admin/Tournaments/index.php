@@ -21,7 +21,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($tournaments as $tournament): ?>
+                <?php foreach ($tournaments as $tournament) : ?>
                 <tr>
                     <td><?= $this->Number->format($tournament->id) ?></td>
                     <td><?= h($tournament->name) ?></td>

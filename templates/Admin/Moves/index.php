@@ -23,7 +23,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($moves as $move): ?>
+                <?php foreach ($moves as $move) : ?>
                 <tr>
                     <td><?= $this->Number->format($move->id) ?></td>
                     <td><?= $move->has('user') ? $this->Html->link($move->user->id, ['controller' => 'Users', 'action' => 'view', $move->user->id]) : '' ?></td>
