@@ -9,7 +9,6 @@ use Cake\TestSuite\TestCase;
  */
 class FormatterTest extends TestCase
 {
-
     public function setUp(): void
     {
         parent::setUp();
@@ -25,14 +24,14 @@ class FormatterTest extends TestCase
     public function testFormatStatPercentage(): void
     {
         $expected = '50%';
-        $result = $this->Formatter->formatStatPercentage(1,1);
+        $result = $this->Formatter->formatStatPercentage(1, 1);
         $this->assertSame($expected, $result);
     }
 
     public function testFormatStatPercentageShouldReturnPlayMoreGames(): void
     {
         $expected = 'Play more games!';
-        $result = $this->Formatter->formatStatPercentage(0,1);
+        $result = $this->Formatter->formatStatPercentage(0, 1);
         $this->assertSame($expected, $result);
     }
 }
