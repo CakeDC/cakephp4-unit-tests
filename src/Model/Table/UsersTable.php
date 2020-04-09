@@ -68,29 +68,29 @@ class UsersTable extends Table
     {
         $validator
             ->integer('id')
-            ->allowEmpty('id', 'create');
+            ->allowEmptyString('id', 'create');
 
         $validator
             ->email('email')
             ->requirePresence('email', 'create')
-            ->notEmpty('email');
+            ->allowEmptyString('email');
 
         $validator
-            ->allowEmpty('password');
+            ->allowEmptyString('password');
 
         $validator
             ->boolean('is_active')
-            ->allowEmpty('is_active');
+            ->allowEmptyString('is_active');
 
         $validator
-            ->allowEmpty('first_name');
+            ->allowEmptyString('first_name');
 
         $validator
-            ->allowEmpty('last_name');
+            ->allowEmptyString('last_name');
 
         $validator
             ->boolean('is_superuser')
-            ->allowEmpty('is_superuser');
+            ->allowEmptyString('is_superuser');
 
         return $validator;
     }

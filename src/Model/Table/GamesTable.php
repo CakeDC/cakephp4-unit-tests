@@ -77,7 +77,7 @@ class GamesTable extends Table
     {
         $validator
             ->integer('id')
-            ->allowEmpty('id', 'create');
+            ->allowEmptyString('id', 'create');
 
         $validator
             ->integer('best_of')
@@ -86,7 +86,7 @@ class GamesTable extends Table
 
         $validator
             ->boolean('is_player_winner')
-            ->allowEmpty('is_player_winner');
+            ->allowEmptyString('is_player_winner');
 
         return $validator;
     }

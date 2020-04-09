@@ -23,7 +23,7 @@ echo $this->Html->tableHeaders([
 ]);
 collection($currentGame->get('moves'))->each(function ($move, $index) {
     echo $this->Html->tableCells([
-        [$index, $move['player_move'], $move['computer_move'], $move['winner']],
+        [(string)$index, $move['player_move'], $move['computer_move'], $move['winner']],
     ]);
 });
 echo '</table>';

@@ -28,7 +28,7 @@ class ComputerMoveBehavior extends Behavior
 
     public function afterSave(\Cake\Event\EventInterface $event, Move $move, $options)
     {
-        $move->game = $this->_table->Games->checkFinished($move['game_id']);
+        $move->game = $this->getTable()->Games->checkFinished($move['game_id']);
 
         return $move;
     }

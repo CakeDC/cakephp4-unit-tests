@@ -60,15 +60,15 @@ class TournamentsTable extends Table
     {
         $validator
             ->integer('id')
-            ->allowEmpty('id', 'create');
+            ->allowEmptyString('id', 'create');
 
         $validator
             ->requirePresence('name', 'create')
-            ->notEmpty('name');
+            ->allowEmptyString('name');
 
         $validator
             ->dateTime('expiration_date')
-            ->allowEmpty('expiration_date');
+            ->allowEmptyDateTime('expiration_date');
 
         return $validator;
     }

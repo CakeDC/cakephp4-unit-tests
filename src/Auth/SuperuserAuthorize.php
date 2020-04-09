@@ -13,7 +13,7 @@ class SuperuserAuthorize extends BaseAuthorize
      * @param ServerRequest $request
      * @return bool
      */
-    public function authorize($user, ServerRequest $request)
+    public function authorize($user, ServerRequest $request): bool
     {
         return $user['is_superuser'] === true;
     }

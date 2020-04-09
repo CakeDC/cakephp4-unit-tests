@@ -37,6 +37,7 @@ class AppController extends Controller
      * e.g. `$this->loadComponent('Security');`
      *
      * @return void
+     * @throws \Exception
      */
     public function initialize(): void
     {
@@ -87,18 +88,10 @@ class AppController extends Controller
      * Before render callback.
      *
      * @param \Cake\Event\Event $event The beforeRender event.
-     * @return \Cake\Network\Response|null|void
      */
     public function beforeRender(\Cake\Event\EventInterface $event)
     {
-        if (
-            !array_key_exists('_serialize', $this->viewVars) &&
-            in_array($this->response->type(), ['application/json', 'application/xml'])
-        ) {
-            $this->set('_serialize', true);
-        }
-
-        if ($this->Auth) {
+        if ($this->components()->has('Auth')) {
             $this->set('currentUser', $this->Auth->user());
         }
     }

@@ -62,20 +62,20 @@ class MovesTable extends Table
     {
         $validator
             ->integer('id')
-            ->allowEmpty('id', 'create');
+            ->allowEmptyString('id', 'create');
 
         $validMoves = Configure::read('Moves.PlayerMoves');
         $validator
-            ->allowEmpty('player_move')
+            ->allowEmptyString('player_move')
             ->inList('player_move', $validMoves);
 
         $validator
-            ->allowEmpty('computer_move')
+            ->allowEmptyString('computer_move')
             ->inList('computer_move', $validMoves);
 
         $validator
             ->boolean('is_player_winner')
-            ->allowEmpty('is_player_winner');
+            ->allowEmptyString('is_player_winner');
 
         return $validator;
     }

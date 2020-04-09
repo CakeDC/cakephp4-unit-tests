@@ -61,11 +61,11 @@ class TournamentMembershipsTable extends Table
     {
         $validator
             ->integer('id')
-            ->allowEmpty('id', 'create');
+            ->allowEmptyString('id', 'create');
 
         $validator
             ->requirePresence('nick', 'create')
-            ->notEmpty('nick');
+            ->allowEmptyString('nick');
 
         return $validator;
     }
