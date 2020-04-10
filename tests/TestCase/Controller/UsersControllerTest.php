@@ -4,7 +4,9 @@ declare(strict_types=1);
 namespace App\Test\TestCase\Controller;
 
 use App\Controller\UsersController;
+use App\Strategy\RockStrategy;
 use Cake\Auth\DefaultPasswordHasher;
+use Cake\Core\Configure;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\IntegrationTestTrait;
 use Cake\TestSuite\TestCase;
@@ -105,5 +107,43 @@ class UsersControllerTest extends TestCase
     public function testLogout(): void
     {
         $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    public function testWinGame()
+    {
+        $this->enableCsrfToken();
+        Configure::write('ComputerMoveBehavior.StrategyClass', RockStrategy::class);
+        // user login happy
+        $data = [
+            'email' => 'test2@example.com',
+            'password' => 'password',
+        ];
+        $this->post('/users/login', $data);
+        $this->assertResponseSuccess();
+        $this->assertSession('test2', 'Auth.User.first_name');
+        $this->assertRedirect('/');
+        $this->session($_SESSION);
+        // user logged in at this point
+        $this->get('/games/play');
+        $this->assertResponseContains('Pick Rock');
+        // play Spock 1
+        $data = [
+            'game_id' => 20,
+            'player_move' => 'K',
+        ];
+        $movesTable = TableRegistry::getTableLocator()->get('Moves');
+        $movesCount = $movesTable->find()->count();
+        $this->post('/moves/player-move', $data);
+        $this->assertCount(++$movesCount, $movesTable->find());
+        $gamesTable = TableRegistry::getTableLocator()->get('Games');
+        $game = $gamesTable->get(20);
+        $this->assertNull($game['is_player_winner']);
+        // play Spock 2 and win
+        $this->post('/moves/player-move', $data);
+        $this->assertCount(++$movesCount, $movesTable->find());
+        $game = $gamesTable->get(20);
+        $this->assertTrue($game['is_player_winner']);
+        //read flash from _flashMessages when the view is rendered, if there is a redirect, the flash is not rendered and you get it from the requestSession instead
+        $this->assertFlashMessage('You Won the game');
     }
 }

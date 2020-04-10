@@ -56,6 +56,18 @@ class UsersFixture extends TestFixture
                 'modified' => '2020-04-09 15:09:57',
                 'games_count' => 8,
             ],
+            [
+                'id' => 20,
+                'email' => 'test2@example.com',
+                'password' => '$2y$10$zLjpYURL.rUcADXznCHu/.laL3XQb2ZTkVxJYN968KFAXJQE4M6V.',
+                'is_active' => true,
+                'first_name' => 'test2',
+                'last_name' => 'test2',
+                'is_superuser' => true,
+                'created' => '2020-04-09 15:09:57',
+                'modified' => '2020-04-09 15:09:57',
+                'games_count' => 1,
+            ],
         ];
         parent::init();
     }
