@@ -67,7 +67,7 @@ class GamesFixture extends TestFixture
                 'best_of' => 3,
                 'user_id' => 20,
                 'is_player_winner' => null,
-                'tournament_id' => null
+                'tournament_id' => null,
             ],
         ];
         parent::init();
