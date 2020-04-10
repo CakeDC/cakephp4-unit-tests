@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Model\Table;
 
+use App\Model\Entity\Game;
 use App\Model\Table\GamesTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
@@ -80,9 +81,23 @@ class GamesTableTest extends TestCase
      *
      * @return void
      */
-    public function testCurrent(): void
+    public function testCurrentShouldReturnAGame()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $game = $this->Games->current(1);
+        $this->assertInstanceOf(Game::class, $game);
+        $this->assertSame(10, $game->id);
+        $this->assertCount(0, $game->moves);
+    }
+
+    /**
+     * Test current method
+     *
+     * @return void
+     */
+    public function testCurrentShouldReturnNull()
+    {
+        $game = $this->Games->current(2);
+        $this->assertNull($game);
     }
 
     /**

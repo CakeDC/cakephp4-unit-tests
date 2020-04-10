@@ -106,7 +106,7 @@ class GamesTable extends Table
         return $rules;
     }
 
-    public function current($userId)
+    public function current(int $userId): ?Game
     {
         return $this->find('owner', compact('userId'))
             ->where(['is_player_winner IS' => null])

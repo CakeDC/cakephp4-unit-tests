@@ -50,6 +50,16 @@ class GamesFixture extends TestFixture
                 'is_player_winner' => false,
                 'tournament_id' => null,
             ],
+            // \App\Test\TestCase\Model\Table\GamesTableTest::testCurrentShouldReturnAGame
+            [
+                'id' => 10,
+                'created' => '2020-04-09 15:11:24',
+                'modified' => '2020-04-09 15:11:28',
+                'best_of' => 3,
+                'user_id' => 1,
+                'is_player_winner' => null,
+                'tournament_id' => null,
+            ],
         ];
         parent::init();
     }
