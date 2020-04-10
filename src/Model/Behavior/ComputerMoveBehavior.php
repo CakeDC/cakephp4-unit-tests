@@ -72,6 +72,7 @@ class ComputerMoveBehavior extends Behavior
     protected function getStrategy(): StrategyInterface
     {
         $strategyClass = Configure::read('ComputerMoveBehavior.StrategyClass');
+
         return new $strategyClass();
     }
 }
