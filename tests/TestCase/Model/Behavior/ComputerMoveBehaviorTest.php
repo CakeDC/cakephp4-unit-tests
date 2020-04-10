@@ -121,14 +121,14 @@ class ComputerMoveBehaviorTest extends TestCase
             'computer_move' => null,
             'is_player_winner' => null,
             'created' => '2019-02-22 10:57:59',
-            'modified' => '2019-02-22 10:57:59'
+            'modified' => '2019-02-22 10:57:59',
         ]));
 
         $this->assertSame('R', $move->player_move);
         $this->assertSame('P', $move->computer_move);
     }
 
-    public function testComputerMoveIntegration() : void
+    public function testComputerMoveIntegration(): void
     {
         // Integration approach
         Configure::write('ComputerMoveBehavior.StrategyClass', RockStrategy::class);
@@ -140,7 +140,7 @@ class ComputerMoveBehaviorTest extends TestCase
             'computer_move' => null,
             'is_player_winner' => null,
             'created' => '2019-02-22 10:57:59',
-            'modified' => '2019-02-22 10:57:59'
+            'modified' => '2019-02-22 10:57:59',
         ]));
         $this->assertSame('R', $move->computer_move);
         $this->assertSame(true, $move->is_player_winner);
