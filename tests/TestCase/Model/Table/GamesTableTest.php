@@ -4,9 +4,12 @@ declare(strict_types=1);
 namespace App\Test\TestCase\Model\Table;
 
 use App\Model\Entity\Game;
+use App\Model\Entity\User;
 use App\Model\Table\GamesTable;
+use Cake\ORM\Query;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
+use Cake\Utility\Text;
 
 /**
  * App\Model\Table\GamesTable Test Case
@@ -105,7 +108,7 @@ class GamesTableTest extends TestCase
      *
      * @return void
      */
-    public function testFindOwner(): void
+    public function testFindOwnerShouldThrowException(): void
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
@@ -117,7 +120,32 @@ class GamesTableTest extends TestCase
      */
     public function testCheckFinished(): void
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->expectException(\OutOfBoundsException::class);
+        $this->expectExceptionMessage('Option userId is required');
+        $this->Games->find('owner');
+    }
+
+    /**
+     * Test findOwner method
+     *
+     * @return void
+     */
+    public function testFindOwnerShouldReturnQuery(): void
+    {
+        // using another strategy, generators
+        $generatedUser = $this->Games->Users->save(new User([
+            'email' => Text::uuid() . '@example.com',
+            'password' => 'password',
+            'games' => [
+                new Game([
+                    'best_of' => 3,
+                ]),
+            ],
+        ]));
+
+        $query = $this->Games->find('owner', ['userId' => $generatedUser->id]);
+        $this->assertInstanceOf(Query::class, $query);
+        $this->assertSame(1, $query->count());
     }
 
     /**
