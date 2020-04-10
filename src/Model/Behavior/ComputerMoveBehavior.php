@@ -3,6 +3,7 @@
 namespace App\Model\Behavior;
 
 use App\Model\Entity\Move;
+use App\Strategy\StrategyInterface;
 use Cake\Core\Configure;
 use Cake\Event\Event;
 use Cake\ORM\Behavior;
@@ -35,8 +36,7 @@ class ComputerMoveBehavior extends Behavior
 
     public function computerMove(Move $move): Move
     {
-        $strategyClass = Configure::read('ComputerMoveBehavior.StrategyClass');
-        $strategy = new $strategyClass();
+        $strategy = $this->getStrategy();
         $computerMove = $strategy->move($move);
         $move->set([
             'computer_move' => $computerMove,
@@ -67,5 +67,11 @@ class ComputerMoveBehavior extends Behavior
         }
 
         throw new \OutOfBoundsException('Invalid move');
+    }
+
+    protected function getStrategy(): StrategyInterface
+    {
+        $strategyClass = Configure::read('ComputerMoveBehavior.StrategyClass');
+        return new $strategyClass();
     }
 }
