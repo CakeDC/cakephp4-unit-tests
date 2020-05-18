@@ -58,22 +58,6 @@ class AppController extends Controller
     {
         /*
         $authOptions = [
-            'loginAction' => [
-                'prefix' => false,
-                'controller' => 'Users',
-                'action' => 'login',
-            ],
-            'logoutRedirect' => [
-                'prefix' => false,
-                'controller' => 'Pages',
-                'action' => 'display',
-                'home',
-            ],
-            'authenticate' => [
-                'Form' => [
-                    'fields' => ['username' => 'email'],
-                ],
-            ],
             'authorize' => ['Superuser', 'AdminPrefix'],
         ];
 
@@ -88,8 +72,8 @@ class AppController extends Controller
      */
     public function beforeRender(\Cake\Event\EventInterface $event)
     {
-        if ($this->components()->has('Auth')) {
-            $this->set('currentUser', $this->Authentication->getIdentity());
+        if ($this->components()->has('Authentication')) {
+            $this->set('currentUser', $this->Authentication->getIdentity()->getOriginalData());
         }
     }
 }
