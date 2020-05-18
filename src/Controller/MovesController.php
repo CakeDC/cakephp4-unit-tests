@@ -35,7 +35,7 @@ class MovesController extends AppController
 
         return $this->redirect([
             'controller' => 'Games',
-            'action' => 'play'
+            'action' => 'play',
         ]);
     }
 }

@@ -1,7 +1,6 @@
 <?php
 namespace App\Auth;
 
-
 use Authentication\AuthenticationService;
 use Authentication\AuthenticationServiceInterface;
 use Authentication\AuthenticationServiceProviderInterface;
@@ -21,7 +20,7 @@ class AppAuth implements AuthenticationServiceProviderInterface
             'fields' => [
                 'username' => 'email',
                 'password' => 'password',
-            ]
+            ],
         ]);
 
         // Load the authenticators, you want session first
