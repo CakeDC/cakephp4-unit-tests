@@ -17,7 +17,7 @@ class UsersController extends AppController
     {
         parent::beforeFilter($event);
 
-        $this->Auth->allow(['register', 'logout']);
+        $this->Authentication->addUnauthenticatedActions(['login', 'register', 'logout']);
     }
 
     public function register()
@@ -39,19 +39,27 @@ class UsersController extends AppController
 
     public function login()
     {
-        if ($this->request->is('post')) {
-            $user = $this->Auth->identify();
-            if ($user) {
-                $this->Auth->setUser($user);
+        $this->request->allowMethod(['get', 'post']);
+        $result = $this->Authentication->getResult();
+        // regardless of POST or GET, redirect if user is logged in
+        if ($result->isValid()) {
+            //loginRedirect
+            $redirect = $this->request->getQuery('redirect', [
+                'prefix' => false,
+                'controller' => 'Games',
+                'action' => 'play',
+            ]);
 
-                return $this->redirect($this->Auth->redirectUrl());
-            }
-            $this->Flash->error(__('Invalid username or password, try again'));
+            return $this->redirect($redirect);
+        }
+        // display error if user submitted and authentication failed
+        if ($this->request->is('post') && !$result->isValid()) {
+            $this->Flash->error(__('Invalid username or password'));
         }
     }
 
     public function logout()
     {
-        return $this->redirect($this->Auth->logout());
+        return $this->redirect($this->Authentication->logout());
     }
 }

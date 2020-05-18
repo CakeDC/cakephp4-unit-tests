@@ -21,7 +21,7 @@ class MovesController extends AppController
         if (!$gameId) {
             throw new \OutOfBoundsException('Missing game_id');
         }
-        $move = $this->Moves->playerMove($this->Auth->user('id'), $gameId, $playerMove);
+        $move = $this->Moves->playerMove($this->Authentication->getIdentityData('id'), $gameId, $playerMove);
         if ($move->getErrors()) {
             $this->Flash->error(Text::toList($move->getErrors()));
         }

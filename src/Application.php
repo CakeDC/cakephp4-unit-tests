@@ -16,7 +16,9 @@ declare(strict_types=1);
  */
 namespace App;
 
+use App\Auth\AppAuth;
 use App\Middleware\ProfileTimeMiddleware;
+use Authentication\Middleware\AuthenticationMiddleware;
 use Cake\Core\Configure;
 use Cake\Core\Exception\MissingPluginException;
 use Cake\Error\Middleware\ErrorHandlerMiddleware;
@@ -82,7 +84,8 @@ class Application extends BaseApplication
             // creating the middleware instance specify the cache config name by
             // using it's second constructor argument:
             // `new RoutingMiddleware($this, '_cake_routes_')`
-            ->add(new RoutingMiddleware($this));
+            ->add(new RoutingMiddleware($this))
+            ->add(new AuthenticationMiddleware(new AppAuth()));
 
         return $middlewareQueue;
     }

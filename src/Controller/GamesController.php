@@ -15,7 +15,7 @@ class GamesController extends AppController
 {
     public function play()
     {
-        $currentGame = $this->Games->current($this->Auth->user('id'));
+        $currentGame = $this->Games->current($this->Authentication->getIdentityData('id'));
         if (!$currentGame) {
             return $this->redirect(['action' => 'create']);
         }
@@ -32,7 +32,7 @@ class GamesController extends AppController
         $game = $this->Games->newEmptyEntity();
         if ($this->request->is('post')) {
             $game = $this->Games->patchEntity($game, $this->request->getData());
-            $game['user_id'] = $this->Auth->user('id');
+            $game['user_id'] = $this->Authentication->getIdentityData('id');
             if ($this->Games->save($game)) {
                 $this->Flash->success(__('The game has been saved.'));
 

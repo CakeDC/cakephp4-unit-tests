@@ -16,7 +16,7 @@ class TournamentsController extends AppController
     public function index()
     {
         //display tournaments, and status
-        $tournaments = $this->Tournaments->find('index', ['userId' => $this->Auth->user('id')]);
+        $tournaments = $this->Tournaments->find('index', ['userId' => $this->Authentication->getIdentityData('id')]);
         $this->set(compact('tournaments'));
     }
 
@@ -28,7 +28,7 @@ class TournamentsController extends AppController
         }
         $tournament = $this->Tournaments->get($tournamentId);
         $tournament = $this->Tournaments->patchEntity($tournament, $this->request->getData());
-        $tournament['tournament_memberships'][0]['user_id'] = $this->Auth->user('id');
+        $tournament['tournament_memberships'][0]['user_id'] = $this->Authentication->getIdentityData('id');
         $this->Tournaments->save($tournament);
         $this->set(compact('tournament'));
         $this->render('/Element/Tournaments/join');
