@@ -13,7 +13,9 @@ use Authorization\AuthorizationServiceProviderInterface;
 use Authorization\Policy\MapResolver;
 use Authorization\Policy\OrmResolver;
 use Authorization\Policy\ResolverCollection;
+use Cake\Core\Configure;
 use Cake\Http\ServerRequest;
+use CakeDC\Auth\Policy\RbacPolicy;
 use Psr\Http\Message\ServerRequestInterface;
 
 class AppAuth implements AuthenticationServiceProviderInterface, AuthorizationServiceProviderInterface
@@ -49,6 +51,8 @@ class AppAuth implements AuthenticationServiceProviderInterface, AuthorizationSe
 
     public function getAuthorizationService(ServerRequestInterface $request): AuthorizationServiceInterface
     {
-        return new AuthorizationService(new OrmResolver());
+        $map = new MapResolver();
+        $map->map(ServerRequest::class, new RbacPolicy());
+        return new AuthorizationService($map);
     }
 }

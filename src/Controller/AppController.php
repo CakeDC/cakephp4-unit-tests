@@ -92,11 +92,8 @@ class AppController extends Controller
     {
         if (
             $this->components()->has('Authentication') &&
-            $this->Authentication->getIdentity() &&
-            $this->Authentication->getIdentityData('is_superadmin')
-        ) {
-            //allow superadmin to do anything
-            $this->Authorization->skipAuthorization();
+            $this->Authentication->getIdentity()) {
+            $this->Authorization->authorize($this->request, 'access');
         }
     }
 }
