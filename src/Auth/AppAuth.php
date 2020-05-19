@@ -53,6 +53,7 @@ class AppAuth implements AuthenticationServiceProviderInterface, AuthorizationSe
     {
         $map = new MapResolver();
         $map->map(ServerRequest::class, new RbacPolicy());
+
         return new AuthorizationService($map);
     }
 }

@@ -9,17 +9,19 @@ use Cake\Utility\Hash;
 
 class RequestPolicy implements RequestPolicyInterface
 {
-
     public function canSkipAuthorization(IdentityInterface $identity, ServerRequest $request)
     {
-        if (in_array($request->getRequestTarget(), [
+        if (
+            in_array($request->getRequestTarget(), [
             '/',
             '/users/login',
             '/users/logout',
             '/users/register',
-        ])) {
+            ])
+        ) {
             return true;
         }
+
         return false;
     }
 

@@ -92,7 +92,8 @@ class AppController extends Controller
     {
         if (
             $this->components()->has('Authentication') &&
-            $this->Authentication->getIdentity()) {
+            $this->Authentication->getIdentity()
+        ) {
             $this->Authorization->authorize($this->request, 'access');
         }
     }

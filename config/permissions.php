@@ -54,7 +54,7 @@ return [
         [
             'prefix' => false,
             'controller' => 'Games',
-            'action' => '*'
+            'action' => '*',
         ],
         [
             'prefix' => 'Admin',
@@ -63,8 +63,8 @@ return [
             'allowed' => new \CakeDC\Auth\Rbac\Rules\Owner([
                 'table' => 'TournamentMemberships',
                 'id' => 'tournament_id',
-                'ownerForeignKey' => 'user_id'
-            ])
+                'ownerForeignKey' => 'user_id',
+            ]),
         ],
         //all bypass
         [
@@ -87,7 +87,7 @@ return [
                 'requestResetPassword',
                 // UserValidationTrait used in PasswordManagementTrait
                 'resendTokenValidation',
-                'linkSocial'
+                'linkSocial',
             ],
             'bypassAuth' => true,
         ],
@@ -129,7 +129,7 @@ return [
                 }
 
                 return false;
-            }
+            },
         ],
         //all roles allowed to Pages/display
         [
@@ -137,5 +137,5 @@ return [
             'controller' => 'Pages',
             'action' => 'display',
         ],
-    ]
+    ],
 ];
