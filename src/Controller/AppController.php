@@ -90,10 +90,11 @@ class AppController extends Controller
 
     public function beforeFilter(EventInterface $event)
     {
-        if ($this->components()->has('Authentication') &&
+        if (
+            $this->components()->has('Authentication') &&
             $this->Authentication->getIdentity() &&
-            $this->Authentication->getIdentityData('is_superadmin')) {
-
+            $this->Authentication->getIdentityData('is_superadmin')
+        ) {
             //allow superadmin to do anything
             $this->Authorization->skipAuthorization();
         }

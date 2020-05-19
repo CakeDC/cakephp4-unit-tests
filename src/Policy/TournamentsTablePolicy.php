@@ -23,5 +23,4 @@ class TournamentsTablePolicy
             return $q->where(['TournamentMemberships.user_id' => $user->get('id')]);
         });
     }
-
 }
