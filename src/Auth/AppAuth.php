@@ -1,12 +1,22 @@
 <?php
+
 namespace App\Auth;
 
+use App\Policy\RequestPolicy;
+use App\Policy\SuperuserPolicy;
 use Authentication\AuthenticationService;
 use Authentication\AuthenticationServiceInterface;
 use Authentication\AuthenticationServiceProviderInterface;
+use Authorization\AuthorizationService;
+use Authorization\AuthorizationServiceInterface;
+use Authorization\AuthorizationServiceProviderInterface;
+use Authorization\Policy\MapResolver;
+use Authorization\Policy\OrmResolver;
+use Authorization\Policy\ResolverCollection;
+use Cake\Http\ServerRequest;
 use Psr\Http\Message\ServerRequestInterface;
 
-class AppAuth implements AuthenticationServiceProviderInterface
+class AppAuth implements AuthenticationServiceProviderInterface, AuthorizationServiceProviderInterface
 {
     public function getAuthenticationService(ServerRequestInterface $request): AuthenticationServiceInterface
     {
@@ -35,5 +45,10 @@ class AppAuth implements AuthenticationServiceProviderInterface
         ]);
 
         return $authenticationService;
+    }
+
+    public function getAuthorizationService(ServerRequestInterface $request): AuthorizationServiceInterface
+    {
+        return new AuthorizationService(new OrmResolver());
     }
 }

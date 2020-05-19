@@ -15,6 +15,7 @@ class TournamentsController extends AppController
 {
     public function index()
     {
+        $this->Authorization->skipAuthorization();
         //display tournaments, and status
         $tournaments = $this->Tournaments->find('index', ['userId' => $this->Authentication->getIdentityData('id')]);
         $this->set(compact('tournaments'));

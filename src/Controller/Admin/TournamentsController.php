@@ -21,7 +21,9 @@ class TournamentsController extends AppController
      */
     public function index()
     {
-        $tournaments = $this->paginate($this->Tournaments);
+        $query = $this->Tournaments->find();
+        $this->Authorization->authorize($query);
+        $tournaments = $this->paginate($this->Authorization->applyScope($query));
 
         $this->set(compact('tournaments'));
     }
@@ -38,6 +40,7 @@ class TournamentsController extends AppController
         $tournament = $this->Tournaments->get($id, [
             'contain' => ['Games', 'TournamentMemberships'],
         ]);
+        $this->Authorization->authorize($tournament);
 
         $this->set('tournament', $tournament);
     }
@@ -50,6 +53,7 @@ class TournamentsController extends AppController
     public function add()
     {
         $tournament = $this->Tournaments->newEmptyEntity();
+        $this->Authorization->authorize($tournament);
         if ($this->request->is('post')) {
             $tournament = $this->Tournaments->patchEntity($tournament, $this->request->getData());
             if ($this->Tournaments->save($tournament)) {
@@ -74,6 +78,7 @@ class TournamentsController extends AppController
         $tournament = $this->Tournaments->get($id, [
             'contain' => [],
         ]);
+        $this->Authorization->authorize($tournament);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $tournament = $this->Tournaments->patchEntity($tournament, $this->request->getData());
             if ($this->Tournaments->save($tournament)) {
@@ -97,6 +102,7 @@ class TournamentsController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $tournament = $this->Tournaments->get($id);
+        $this->Authorization->authorize($tournament);
         if ($this->Tournaments->delete($tournament)) {
             $this->Flash->success(__('The tournament has been deleted.'));
         } else {

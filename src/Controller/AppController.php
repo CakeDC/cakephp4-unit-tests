@@ -15,14 +15,20 @@
 
 namespace App\Controller;
 
+use Authentication\Controller\Component\AuthenticationComponent;
+use Authorization\Controller\Component\AuthorizationComponent;
 use Cake\Controller\Controller;
 use Cake\Event\Event;
+use Cake\Event\EventInterface;
 
 /**
  * Application Controller
  *
  * Add your application-wide methods in the class below, your controllers
  * will inherit them.
+ *
+ * @property AuthenticationComponent $Authentication
+ * @property AuthorizationComponent $Authorization
  *
  * @link http://book.cakephp.org/3.0/en/controllers.html#the-app-controller
  */
@@ -46,11 +52,8 @@ class AppController extends Controller
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
         $this->loadComponent('Authentication.Authentication');
-//        $this->loadComponent('Authorization.Authorization', [
-//            'skipAuthorization' => [
-//                'login',
-//            ]
-//        ]);
+        $this->loadComponent('Authorization.Authorization');
+
         /*
          * Enable the following components for recommended CakePHP security settings.
          * see http://book.cakephp.org/3.0/en/controllers/components/security.html
@@ -78,7 +81,21 @@ class AppController extends Controller
     public function beforeRender(\Cake\Event\EventInterface $event)
     {
         if ($this->components()->has('Authentication')) {
-            $this->set('currentUser', $this->Authentication->getIdentity()->getOriginalData());
+            $identity = $this->Authentication->getIdentity();
+            if ($identity) {
+                $this->set('currentUser', $identity->getOriginalData());
+            }
+        }
+    }
+
+    public function beforeFilter(EventInterface $event)
+    {
+        if ($this->components()->has('Authentication') &&
+            $this->Authentication->getIdentity() &&
+            $this->Authentication->getIdentityData('is_superadmin')) {
+
+            //allow superadmin to do anything
+            $this->Authorization->skipAuthorization();
         }
     }
 }
