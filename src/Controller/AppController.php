@@ -88,13 +88,13 @@ class AppController extends Controller
         }
     }
 
-    public function beforeFilter(EventInterface $event)
-    {
-        if (
-            $this->components()->has('Authentication') &&
-            $this->Authentication->getIdentity()
-        ) {
-            $this->Authorization->authorize($this->request, 'access');
-        }
-    }
+//    public function beforeFilter(EventInterface $event)
+//    {
+//        if (
+//            $this->components()->has('Authentication') &&
+//            $this->Authentication->getIdentity()
+//        ) {
+//            $this->Authorization->authorize($this->request, 'access');
+//        }
+//    }
 }

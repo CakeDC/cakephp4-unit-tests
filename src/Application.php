@@ -19,6 +19,7 @@ namespace App;
 
 use App\Auth\AppAuth;
 use App\Middleware\ProfileTimeMiddleware;
+use App\Middleware\RbacMiddleware;
 use Authentication\Middleware\AuthenticationMiddleware;
 use Authorization\AuthorizationService;
 use Authorization\AuthorizationServiceInterface;
@@ -103,7 +104,8 @@ class Application extends BaseApplication
                     'url' => '/users/login',
                     'queryParam' => 'redirectUrl',
                 ],
-            ]));
+            ]))
+            ->add(new RbacMiddleware());
 
         return $middlewareQueue;
     }

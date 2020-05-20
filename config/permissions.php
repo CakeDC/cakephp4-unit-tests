@@ -57,6 +57,15 @@ return [
             'action' => '*',
         ],
         [
+            'controller' => 'Users',
+            'action' => ['login', 'logout']
+        ],
+        [
+            'plugin' => 'DebugKit',
+            'controller' => '*',
+            'action' => '*'
+        ],
+        [
             'prefix' => 'Admin',
             'controller' => 'Tournaments',
             'action' => 'edit',
