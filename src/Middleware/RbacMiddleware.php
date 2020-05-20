@@ -31,8 +31,10 @@ class RbacMiddleware implements MiddlewareInterface
         $authorization = $request->getAttribute('authorization');
         $identity = $request->getAttribute('identity');
 
-        if ($identity &&
-            !$authorization->can($request->getAttribute('identity'), 'access', $request)) {
+        if (
+            $identity &&
+            !$authorization->can($request->getAttribute('identity'), 'access', $request)
+        ) {
             throw new ForbiddenException();
         }
 

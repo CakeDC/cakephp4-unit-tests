@@ -58,12 +58,12 @@ return [
         ],
         [
             'controller' => 'Users',
-            'action' => ['login', 'logout']
+            'action' => ['login', 'logout'],
         ],
         [
             'plugin' => 'DebugKit',
             'controller' => '*',
-            'action' => '*'
+            'action' => '*',
         ],
         [
             'prefix' => 'Admin',
